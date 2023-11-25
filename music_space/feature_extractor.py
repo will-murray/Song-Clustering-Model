@@ -32,14 +32,12 @@ def extractor_2(path,TERMS_SET):
     the weight of the ith artist term for that
     song
     """
-    TERMS_SET = TERMS_SET[1:41]
-    print(TERMS_SET)
-    return
     song_file = h5.open_h5_file_read(path)
 
     terms = [term for term in np.char.decode(h5.get_artist_terms(song_file))]
     weights = [weight for weight in h5.get_artist_terms_weight(song_file)]
     term_weight_dict = dict(zip(terms,weights))
+    X = []
     X = []
     for TERM in TERMS_SET:
         if TERM in term_weight_dict:

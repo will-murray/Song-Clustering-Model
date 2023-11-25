@@ -1,13 +1,13 @@
-import hdf5_getters as h5
+import music_space.hdf5_getters as h5
 import numpy as np
 import os
 import csv
-from feature_extractor import *
+from music_space.feature_extractor import *
 from tqdm import tqdm
 
 
 def list_song_files():
-    root = "MillionSongSubset"
+    root = "music_space/MillionSongSubset"
     files= []
     for prefix_1 in ['A', 'B']:
         child = root + '/' + prefix_1
@@ -59,7 +59,7 @@ def initialize_music_space(mode = 2):
     
     if mode == 2:
         all_terms = None
-        with open('embeddings/term_frequency.csv') as file:
+        with open('music_space/embeddings/term_frequency.csv') as file:
             reader = csv.reader(file)
             all_terms = [row[1] for row in reader]
 
@@ -87,10 +87,10 @@ def initialize_music_space(mode = 2):
         directory_path = os.path.join("embeddings", "npy")
         os.makedirs(directory_path)
 
-    csv_file = f'embeddings/csv/MSD_songs_{mode}.csv'
-    csv_ids_file = f'embeddings/csv/MSD_IDs_{mode}.csv'
-    npy_file = f'embeddings/npy/MSD_features_{mode}.npy'
-    npy_ids_file = f'embeddings/npy/MSD_song_IDs_{mode}.npy'
+    csv_file = f'music_space/embeddings/csv/MSD_songs_{mode}.csv'
+    csv_ids_file = f'music_space/embeddings/csv/MSD_IDs_{mode}.csv'
+    npy_file = f'music_space/embeddings/npy/MSD_features_{mode}.npy'
+    npy_ids_file = f'music_space/embeddings/npy/MSD_song_IDs_{mode}.npy'
 
 
     with open(csv_file, 'w', newline='') as file:

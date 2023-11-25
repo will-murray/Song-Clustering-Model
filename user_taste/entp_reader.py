@@ -18,23 +18,23 @@ def process(entp_file):
     user_taste = []
     scores = []
 
-    MSD_song_ids = np.load('../music_space/embeddings/npy/MSD_song_IDs_2.npy')
+    MSD_song_ids = np.load('music_space/embeddings/npy/MSD_song_IDs_2.npy')
     MSD_song_ids = MSD_song_ids.astype(str)  # Convert MSD_song_ids to string type
 
     i = 1
+    num_records=10000000
     with open(entp_file, 'r') as input_file:
 
-        for line in tqdm(input_file, total=44000000):
+        for line in tqdm(input_file, total=num_records):
 
             uid, sid, score = line.strip().split()
             user_taste.append([uid, sid, score])
             scores.append(score)
 
             i+=1
-            # #this was implemented because creating the whole dataset will 2 hours or so...
-            # if i == num_lines_to_proc:
-            #     break
-    
+            if i == num_records:
+                break
+
 
     
     user_taste = np.array(user_taste)
@@ -49,7 +49,7 @@ def process(entp_file):
     print(f"Filter for users with 10+ ratings = {user_taste.shape[0]}")
 
 
-    np.save(file = 'data/user_taste.npy',arr = user_taste)
+    np.save(file = 'user_taste/data/user_taste.npy',arr = user_taste)
 
 def sort_by_num_ratings():
     # get a sorted array of user id's and rating counts
