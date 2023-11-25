@@ -13,15 +13,14 @@ import user_taste as UT
 import numpy as np 
 from numpy.random import randint
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from music_space.music_space import music_space
+from sklearn.model_selection import train_test_split
 
 # ^ commented out these modules, cvxpy doesn't like them
 
 class user_taste():
 
     def __init__(self,path):
-        self.taste_space = np.load(path + 'user_taste.npy')
+        self.taste_space, self.test_set = train_test_split( np.load(path + 'user_taste.npy') , test_size=0.2)
         self.taste_dictionary = self.__init_taste_dictionary()
         self.score_matrix = None
         """
@@ -57,18 +56,31 @@ class user_taste():
 
         return 0
     
-    def get_rand_user(self):
+    def get_rand_user(self, test_set = False):
         """returns the user id (uid) of a random user in the user taste dataframe"""
-    
+
+        if test_set:
+            i = randint(0,self.test_set.shape[0]-1)
+            return self.test_set[i,0]
+        
         i = randint(0,self.taste_space.shape[0]-1)
         return self.taste_space[i,0]
     
-    def get_listening_history(self,uid):
+
+    
+    def get_listening_history(self,uid,test_set = False):
         """return all the songs which a given user has listened to"""
+        if test_set:
+            uid_records = self.test_set[:,0] == uid
+            return self.test_set[uid_records]
+        
         uid_records = self.taste_space[:,0] == uid
         return self.taste_space[uid_records]
 
-    def get_all_users(self):
+    def get_all_users(self,test_set = False):
+        if test_set:
+            return np.unique(self.test_set[:,0])
+
         return np.unique(self.taste_space[:,0])
 
     def get_all_songs(self):

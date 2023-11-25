@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 import random
 import matplotlib.pyplot as plt
 import csv
+from sklearn.model_selection import train_test_split
 
 class music_space:
 

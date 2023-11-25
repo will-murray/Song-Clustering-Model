@@ -22,7 +22,7 @@ def process(entp_file):
     MSD_song_ids = MSD_song_ids.astype(str)  # Convert MSD_song_ids to string type
 
     i = 1
-    num_records=10000000
+    num_records=15000000
     with open(entp_file, 'r') as input_file:
 
         for line in tqdm(input_file, total=num_records):
