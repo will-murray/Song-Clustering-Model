@@ -22,7 +22,7 @@ def process(entp_file):
     MSD_song_ids = MSD_song_ids.astype(str)  # Convert MSD_song_ids to string type
 
     i = 1
-    num_records=15000000
+    num_records=5000000
     with open(entp_file, 'r') as input_file:
 
         for line in tqdm(input_file, total=num_records):
@@ -44,8 +44,8 @@ def process(entp_file):
     print(f"Ratings in MSD = {user_taste.shape[0]}")
 
     unique_user_ids, user_id_counts = np.unique(user_taste[:, 0], return_counts=True)
-    user_ids_at_least_10 = unique_user_ids[user_id_counts >= 10]
-    user_taste = user_taste[np.isin(user_taste[:, 0], user_ids_at_least_10)]
+    # user_ids_at_least_10 = unique_user_ids[user_id_counts >= 10]
+    # user_taste = user_taste[np.isin(user_taste[:, 0], user_ids_at_least_10)]
     print(f"Filter for users with 10+ ratings = {user_taste.shape[0]}")
 
 

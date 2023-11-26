@@ -20,7 +20,7 @@ from sklearn.model_selection import train_test_split
 class user_taste():
 
     def __init__(self,path):
-        self.taste_space, self.test_set = train_test_split( np.load(path + 'user_taste.npy') , test_size=0.2)
+        self.taste_space, self.test_set = train_test_split( np.load(path + 'user_taste.npy')[:10000] , test_size=0.2)
         self.taste_dictionary = self.__init_taste_dictionary()
         self.score_matrix = None
         """
